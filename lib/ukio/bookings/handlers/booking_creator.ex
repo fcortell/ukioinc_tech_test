@@ -1,4 +1,5 @@
 defmodule Ukio.Bookings.Handlers.BookingCreator do
+  alias Ukio.Bookings
   alias Ukio.Apartments
 
   def create(
@@ -7,7 +8,7 @@ defmodule Ukio.Bookings.Handlers.BookingCreator do
       ) do
     with a <- Apartments.get_apartment!(apartment_id),
          b <- generate_booking_data(a, check_in, check_out) do
-      Apartments.create_booking(b)
+      Bookings.create_booking(b)
     end
   end
 
@@ -20,5 +21,9 @@ defmodule Ukio.Bookings.Handlers.BookingCreator do
       utilities: 20_000,
       deposit: 100_000
     }
+  end
+
+  defp check_booking_availability(apartment, check_in) do
+      Bookings.check_availability(apartment, check_in)
   end
 end
