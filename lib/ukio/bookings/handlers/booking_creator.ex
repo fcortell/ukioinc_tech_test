@@ -8,15 +8,12 @@ defmodule Ukio.Bookings.Handlers.BookingCreator do
           params
       ) do
       is_available = BookingService.is_booking_slot_available?(apartment_id, check_in, check_out)
-      IO.inspect(is_available)
       if is_available do
-        IO.inspect("Available")
         with a <- Apartments.get_apartment!(apartment_id),
              b <- generate_booking_data(a, check_in, check_out) do
           Bookings.create_booking(b)
         end
       else
-        IO.inspect("Not available")
         {:error, :no_booking_slot_available}
       end
 

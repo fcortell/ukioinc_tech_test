@@ -33,6 +33,11 @@ defmodule Ukio.BookingsTest do
       assert Bookings.get_booking!(booking.id) == booking
     end
 
+    test "check_booking_slot/1 returns list of bookings matching filter" do
+      booking = booking_fixture()
+      assert Enum.count(Bookings.check_booking_slot(booking.apartment_id, booking.check_in, booking.check_out)) == 1
+    end
+
     test "create_booking/1 with valid data creates a booking", %{apartment: apartment} do
       valid_attrs = %{
         apartment_id: apartment.id,
