@@ -37,6 +37,40 @@ defmodule Ukio.Bookings do
   """
   def get_booking!(id), do: Repo.get!(Booking, id)
 
+    @doc """
+  Gets a list of bookings by apartment_id.
+
+  Raises `Ecto.NoResultsError` if the Booking does not exist.
+
+  ## Examples
+
+      iex> get_booking_by_apartment!(123)
+      %Booking{}
+
+      iex> get_booking_by_apartment!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_booking_by_apartment(id) do
+    query = from b in Booking, where: b.apartment_id == ^id
+    Repo.all(query)
+  end
+
+  @doc """
+  Gets a list of bookings ids not matching filter provided, so we can tell if booking slot is available.
+
+  """
+  def check_booking_slot(apartment_id, check_in, check_out) do
+    query = from b in Booking,
+      where:
+        b.apartment_id == ^apartment_id and
+          ((b.check_in <= ^check_in and b.check_out > ^check_in) or
+          (b.check_in < ^check_out and b.check_out >= ^check_out) or
+          (b.check_in >= ^check_in and b.check_out <= ^check_out)),
+      select: b.id
+    Repo.all(query)
+  end
+
   @doc """
   Creates a booking.
 

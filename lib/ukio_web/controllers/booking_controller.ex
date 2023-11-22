@@ -8,11 +8,22 @@ defmodule UkioWeb.BookingController do
   action_fallback UkioWeb.FallbackController
 
   def create(conn, %{"booking" => booking_params}) do
-    with {:ok, %Booking{} = booking} <- BookingCreator.create(booking_params) do
-      conn
-      |> put_status(:created)
-      |> render(:show, booking: booking)
+    case BookingCreator.create(booking_params) do
+      {:ok, %Booking{} = booking} ->
+        conn
+        |> put_status(:created)
+        |> render(:show, booking: booking)
+
+      {:error, :no_booking_slot_available} ->
+        conn
+        |> put_status(:conflict)
+        |> json(%{error: "No matching slot available for provided apartment and date range"})
     end
+  rescue
+    _ ->
+      conn
+      |> put_status(:unprocessable_entity)
+      |> json(%{errors: %{base: "Invalid booking request"}})
   end
 
   def show(conn, %{"id" => id}) do
