@@ -6,7 +6,7 @@ defmodule Ukio.Bookings.Handlers.BookingCreator do
 
   def create(
         %{"check_in" => check_in, "check_out" => check_out, "apartment_id" => apartment_id} =
-          params
+          _
       ) do
       is_available = BookingService.is_booking_slot_available?(apartment_id, check_in, check_out)
       if is_available do

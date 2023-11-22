@@ -3,8 +3,8 @@ Content-Type: application/json
 
 {
     "booking": {
-        "check_in": "2023-03-26",
-        "check_out": "2023-03-27",
-        "apartment_id": "2"
+        "check_in": "2023-05-26",
+        "check_out": "2023-05-27",
+        "apartment_id": 1
     }
 }

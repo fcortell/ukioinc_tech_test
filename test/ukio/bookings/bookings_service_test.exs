@@ -1,21 +1,11 @@
 defmodule Ukio.BookingsServiceTest do
   use Ukio.DataCase
 
-
   describe "bookings service" do
-    alias Ukio.Bookings.Booking
     alias Ukio.Bookings.Handlers.BookingService
     import Ukio.BookingsFixtures
     import Ukio.ApartmentsFixtures
 
-    @invalid_attrs %{
-      apartment_id: nil,
-      check_in: nil,
-      check_out: nil,
-      deposit: nil,
-      monthly_rent: nil,
-      utilities: nil
-    }
     setup do
       %{apartment: apartment_fixture()}
       %{booking: booking_fixture()}
