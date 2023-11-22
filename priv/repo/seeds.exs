@@ -9,6 +9,19 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+Ukio.Repo.insert!(%Ukio.Markets.Market{
+  market: "Earth",
+  fee: 1,
+  discount: 0,
+  vat: 0,
+  })
+Ukio.Repo.insert!(%Ukio.Markets.Market{
+  market: "Mars",
+  fee: 5,
+  discount: 0,
+  vat: 0,
+  })
+
 Ukio.Repo.insert!(%Ukio.Apartments.Apartment{
   zip_code: "08007",
   name: "CAPITAN",

@@ -7,13 +7,15 @@ defmodule Ukio.ApartmentsTest do
     alias Ukio.Apartments.Apartment
 
     import Ukio.ApartmentsFixtures
+    import Ukio.MarketsFixtures
 
     @invalid_attrs %{
       address: nil,
       monthly_price: nil,
       name: nil,
       square_meters: nil,
-      zip_code: nil
+      zip_code: nil,
+      market_id: nil
     }
 
     test "list_apartments/0 returns all apartments" do
@@ -27,12 +29,15 @@ defmodule Ukio.ApartmentsTest do
     end
 
     test "create_apartment/1 with valid data creates a apartment" do
+      market = market_fixture()
+
       valid_attrs = %{
         address: "some address",
         monthly_price: 42,
         name: "some name",
         square_meters: 42,
-        zip_code: "some zip_code"
+        zip_code: "some zip_code",
+        market_id: market.id
       }
 
       assert {:ok, %Apartment{} = apartment} = Apartments.create_apartment(valid_attrs)
@@ -41,6 +46,7 @@ defmodule Ukio.ApartmentsTest do
       assert apartment.name == "some name"
       assert apartment.square_meters == 42
       assert apartment.zip_code == "some zip_code"
+      assert apartment.market_id == market.id
     end
 
     test "create_apartment/1 with invalid data returns error changeset" do

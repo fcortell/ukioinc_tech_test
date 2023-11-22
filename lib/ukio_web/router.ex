@@ -25,6 +25,7 @@ defmodule UkioWeb.Router do
 
     get "/apartments", ApartmentController, :index
     resources "/bookings", BookingController, [:show, :create]
+    resources "/markets", MarketController, except: [:new, :edit]
   end
 
   # Other scopes may use custom stacks.

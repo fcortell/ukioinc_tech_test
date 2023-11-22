@@ -3,6 +3,7 @@ defmodule UkioWeb.BookingControllerTest do
 
   import Ukio.ApartmentsFixtures
   import Ukio.BookingsFixtures
+  import Ukio.MarketsFixtures
 
   @create_attrs %{
     apartment_id: 42,
