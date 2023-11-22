@@ -1,0 +1,10 @@
+POST http://localhost:4000/api/bookings
+Content-Type: application/json
+
+{
+    "booking": {
+        "check_in": "2023-03-26",
+        "check_out": "2023-03-27",
+        "apartment_id": "2"
+    }
+}
