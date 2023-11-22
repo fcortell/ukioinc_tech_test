@@ -84,7 +84,7 @@ We've tried to create a simple test but, simultaneously, something that lets us 
   1. Start Phoenix endpoint with `mix phx.server`.
   2. Visit [`localhost:4000`](http://localhost:4000) from your browser. 
 
-### Usefull commands
+### Useful commands
 
 ```shell
 mix phx.gen.context Markets Market markets market:string fee:integer discount:integer vat:integer
