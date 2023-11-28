@@ -10,6 +10,7 @@ defmodule Ukio.BookingsTest do
 
     import Ukio.BookingsFixtures
     import Ukio.ApartmentsFixtures
+    alias Ukio.Bookings.Handlers.BookingCreator
 
     @invalid_attrs %{
       apartment_id: nil,
@@ -72,6 +73,27 @@ defmodule Ukio.BookingsTest do
       assert {:ok, %Booking{} = booking} = Bookings.update_booking(booking, update_attrs)
       assert booking.check_in == ~D[2023-03-27]
       assert booking.check_out == ~D[2023-03-27]
+    end
+
+    test "booking create test", %{apartment: apartment} do
+      booking = booking_fixture()
+
+      valid_attrs = %{
+        apartment_id: apartment.id,
+        check_in: ~D[2023-05-26],
+        check_out: ~D[2023-05-28],
+        deposit: 100_000,
+        monthly_rent: 250_000,
+        utilities: 20000
+      }
+
+      assert {:ok, %Booking{} = booking} = BookingCreator.create(%{"check_in" => valid_attrs.check_in, "check_out" => valid_attrs.check_out, "apartment_id" => valid_attrs.apartment_id})
+      assert booking.apartment_id == apartment.id
+      assert booking.check_in == ~D[2023-05-26]
+      assert booking.check_out == ~D[2023-05-28]
+      assert booking.deposit == 100_000
+      assert booking.monthly_rent == 250_000
+      assert booking.utilities == 20000
     end
 
     test "update_booking/2 with invalid data returns error changeset" do

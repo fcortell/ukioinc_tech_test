@@ -22,34 +22,33 @@ defmodule Ukio.Bookings.Handlers.BookingCreator do
 
   defp generate_booking_data(apartment, check_in, check_out) do
     market = Markets.get_market!(apartment.market_id)
+    booking = %{
+      apartment_id: apartment.id,
+      check_in: check_in,
+      check_out: check_out,
+      monthly_rent: apartment.monthly_price,
+    }
     case market.market do
       "Mars" ->
         %{
-          apartment_id: apartment.id,
-          check_in: check_in,
-          check_out: check_out,
-          monthly_rent: apartment.monthly_price,
           utilities: market.fee * apartment.square_meters,
           deposit: apartment.monthly_price,
         }
+        |> Map.merge(booking)
       "Earth" ->
         %{
-          apartment_id: apartment.id,
-          check_in: check_in,
-          check_out: check_out,
-          monthly_rent: apartment.monthly_price,
+
           utilities: 20_000,
           deposit: 100_000
         }
+        |> Map.merge(booking)
       _ ->
         %{
-          apartment_id: apartment.id,
-          check_in: check_in,
-          check_out: check_out,
-          monthly_rent: apartment.monthly_price,
+
           utilities: 20_000,
           deposit: 100_000
         }
+        |> Map.merge(booking)
     end
   end
 end
